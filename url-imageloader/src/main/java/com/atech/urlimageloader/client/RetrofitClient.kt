@@ -21,6 +21,10 @@ class RetrofitClient private constructor(
 
     companion object {
         private var instance: RetrofitClient? = null
+        /**
+         * @param baseUrl: url of the website
+         * @return RetrofitClient instance
+         */
         fun getInstance(baseUrl: String): RetrofitClient {
             synchronized(this) {
                 if (instance == null) {

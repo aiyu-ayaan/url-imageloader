@@ -7,6 +7,12 @@ import retrofit2.Call
 
 open class UrlImageLoader {
     companion object {
+        /**
+         * Get image url from website
+         * @param url: url of the website
+         * @param onCompleted: callback function
+         * @see com.atech.urlimageloader.java.UrlImageLoaderJava for java version
+         */
         inline fun getImageUrl(
             url: String,
             crossinline onCompleted: (String?, Throwable?) -> Unit = { _, _ -> }
@@ -29,9 +35,9 @@ open class UrlImageLoader {
                                         .first()
                                         ?.attr("content")
                                 }
-                               imageUrl?.let {
-                                   onCompleted(it, null)
-                               } ?: onCompleted(null, Throwable("Image url not found"))
+                                imageUrl?.let {
+                                    onCompleted(it, null)
+                                } ?: onCompleted(null, Throwable("Image url not found"))
                             } else
                                 onCompleted(null, Throwable("Response is not successful"))
                         }

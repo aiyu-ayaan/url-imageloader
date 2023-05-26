@@ -44,10 +44,11 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    implementation(project(":url-imageloader"))
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.retrofit.scalar)
     implementation(libs.jsoup)
     implementation(libs.coil)
+        implementation(project(":url-imageloader"))
+//    implementation(libs.url.imageloader)
 }
