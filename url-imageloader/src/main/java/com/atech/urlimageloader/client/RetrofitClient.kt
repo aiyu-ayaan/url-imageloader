@@ -1,10 +1,10 @@
-package com.atech.socieltags.api
+package com.atech.urlimageloader.client
 
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class RetrofitClient private constructor(
-    private val baseUrl: String
+    baseUrl: String
 ) {
 
 

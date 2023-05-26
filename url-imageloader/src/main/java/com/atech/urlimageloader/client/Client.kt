@@ -1,4 +1,4 @@
-package com.atech.socieltags.api
+package com.atech.urlimageloader.client
 
 import retrofit2.Call
 import retrofit2.http.GET
