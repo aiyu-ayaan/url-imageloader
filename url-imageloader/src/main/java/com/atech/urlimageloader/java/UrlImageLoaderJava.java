@@ -5,6 +5,7 @@ import static com.atech.urlimageloader.utils.ValidKt.makeValidUrl;
 import androidx.annotation.NonNull;
 
 import com.atech.urlimageloader.client.RetrofitClient;
+import com.atech.urlimageloader.kotlin.UrlImageLoader;
 import com.atech.urlimageloader.utils.BiConsumer;
 
 import org.jsoup.Jsoup;
@@ -15,6 +16,15 @@ import retrofit2.Response;
 
 public class UrlImageLoaderJava {
 
+    /**
+     * Get the image url from a website
+     *
+     * @param url:         The website url
+     * @param onCompleted: The callback
+     * @autor aiyu
+     * @see BiConsumer The callback
+     * @see UrlImageLoader The Kotlin version
+     */
     public static void getImageUrl(String url, BiConsumer<String, Throwable> onCompleted) {
         try {
             RetrofitClient.Companion.getInstance(makeValidUrl(url))

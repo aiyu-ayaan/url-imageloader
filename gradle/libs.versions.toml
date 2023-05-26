@@ -8,6 +8,7 @@ espresso-core = "3.5.1"
 appcompat = "1.6.1"
 material = "1.9.0"
 constraintlayout = "2.1.4"
+url-imageloader = "1.0.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -22,6 +23,7 @@ retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ver
 retrofit-scalar = { group = "com.squareup.retrofit2", name = "converter-scalars", version = "2.9.0" }
 jsoup = { group = "org.jsoup", name = "jsoup", version = "1.14.3" }
 coil = { group = "io.coil-kt", name = "coil", version = "2.3.0" }
+url-imageloader = { module = "com.github.aiyu-ayaan:url-imageloader", version.ref = "url-imageloader" }
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
