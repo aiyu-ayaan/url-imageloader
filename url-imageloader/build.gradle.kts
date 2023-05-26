@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    id("maven-publish")
 }
 
 android {
@@ -43,4 +44,16 @@ dependencies {
     implementation(libs.retrofit.scalar)
     implementation(libs.jsoup)
     implementation(libs.coil)
+}
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.aiyu-ayaan"
+                artifactId = "url-imageloader"
+                version = "1.0.0"
+            }
+        }
+    }
 }
