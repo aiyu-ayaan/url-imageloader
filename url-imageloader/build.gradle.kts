@@ -43,7 +43,6 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation(libs.retrofit.scalar)
     implementation(libs.jsoup)
-    implementation(libs.coil)
 }
 afterEvaluate {
     publishing {
