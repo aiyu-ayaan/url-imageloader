@@ -2,9 +2,14 @@
 
 The Image Loader library is a powerful tool for fetching image URLs and providing image loading capabilities in your Android applications. It simplifies the process of retrieving image URLs from HTML content and handling the image loading operations.
 
+<center>
+<img src="screenshot.png" height="400">
+</center>
+
 ## Features
+
 - Fetch image URLs from HTML content
--  Support for Kotlin and Java versions
+- Support for Kotlin and Java versions
 - Seamless integration with Retrofit for network requests
 - Simple and intuitive API for fetching image URLs
 - Error handling for network failures and missing image URLs
@@ -16,6 +21,7 @@ repositories {
         maven{ url 'https://jitpack.io' }
     }
 ```
+
 ```gradle
 dependencies {
       implementation 'com.github.aiyu-ayaan:url-imageloader:Tag'
@@ -23,7 +29,23 @@ dependencies {
 ```
 
 ## Usage
+
 ### For kotlin
+
+`To get all the details`
+
+```kotlin
+UrlImageLoader.getLinkDetailsUrl(url) { imageUrl, error ->
+    if (error != null) {
+        // Handle the error
+    } else {
+        // Use the image URL
+    }
+
+```
+
+`To get only Image Details`
+
 ```kotlin
 UrlImageLoader.getImageUrl(url) { imageUrl, error ->
     if (error != null) {
@@ -35,6 +57,21 @@ UrlImageLoader.getImageUrl(url) { imageUrl, error ->
 ```
 
 ### For Java
+
+`To get all the details`
+
+```java
+UrlImageLoaderJava.getLinkDetailsUrl(url, (details, error) -> {
+    if (error != null) {
+        // Handle the error
+    } else {
+        // Use the image URL
+    }
+});
+```
+
+`To get only Image Details`
+
 ```java
 UrlImageLoaderJava.getImageUrl(url, (imageUrl, error) -> {
     if (error != null) {
@@ -46,9 +83,11 @@ UrlImageLoaderJava.getImageUrl(url, (imageUrl, error) -> {
 ```
 
 ## Code Example
+
 `MainActivity.kt`
 
 ```kotlin
+private const val TAG = "AAA"
 class MainActivity : AppCompatActivity() {
 
     private val github = "www.github.com/aiyu-ayaan/"
@@ -62,21 +101,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        UrlImageLoader.getImageUrl(github) { link, t ->
+        UrlImageLoader.getLinkDetailsUrl(github) { link, t ->
             if (t != null) {
                 Log.d(TAG, "onCreate: ${t.message}")
                 return@getImageUrl
             }
-            binding.imageView.load(link) // Using Coil to load image
+            Log.d(TAG, "onCreate: ${it.title}")
+            Log.d(TAG, "onCreate: ${it.description} ")
+            Log.d(TAG, "onCreate: ${it.imageLink}")
         }
     }
 }
 ```
 
-## Contributing 
+## Contributing
+
 If you would like to contribute to the library, please fork the repository and create a pull request.
 
 ## License
+
 ```
 MIT License
 

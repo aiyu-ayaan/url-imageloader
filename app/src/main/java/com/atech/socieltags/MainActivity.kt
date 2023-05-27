@@ -2,6 +2,7 @@ package com.atech.socieltags
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.atech.socieltags.databinding.ActivityMainBinding
@@ -22,12 +23,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        UrlImageLoader.getImageUrl(github) { link, t ->
-            if (t != null) {
-                Log.d(TAG, "onCreate: ${t.message}")
-                return@getImageUrl
+        binding.buttonGetDetails.setOnClickListener {
+            binding.textInputLayoutLink.editText?.apply {
+                if (text.isEmpty()) {
+                    binding.textInputLayoutLink.error = "Please enter a link"
+                    return@apply
+                }
+                val link = text.toString()
+                UrlImageLoader.getLinkDetailsUrl(link) { linkDetails, t ->
+                    if (t != null) {
+                        Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                    linkDetails?.let {
+                        binding.apply {
+                            imageView.load(it.imageLink)
+                            textViewTitle.text = it.title
+                            textViewDescription.text = it.description
+                        }
+                    }
+                }
             }
-            binding.imageView.load(link)
         }
     }
 }
