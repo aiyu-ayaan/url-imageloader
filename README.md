@@ -25,7 +25,7 @@ dependencies {
 ## Usage
 ### For kotlin
 ```kotlin
-ImageLoader.getImageUrl(url) { imageUrl, error ->
+UrlImageLoader.getImageUrl(url) { imageUrl, error ->
     if (error != null) {
         // Handle the error
     } else {
@@ -36,7 +36,7 @@ ImageLoader.getImageUrl(url) { imageUrl, error ->
 
 ### For Java
 ```java
-ImageLoader.getImageUrl(url, (imageUrl, error) -> {
+UrlImageLoaderJava.getImageUrl(url, (imageUrl, error) -> {
     if (error != null) {
         // Handle the error
     } else {
