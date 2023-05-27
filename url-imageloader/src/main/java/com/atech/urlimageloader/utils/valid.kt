@@ -6,11 +6,10 @@ package com.atech.urlimageloader.utils
  * @return valid url
  */
 fun String.makeValidUrl(): String {
-    return if (this.startsWith("http://") || this.startsWith("https://")) {
-        this
-    } else if (!this.endsWith("/")) {
-        "https://$this/"
-    } else {
-        "https://$this/"
-    }
+    var s = this
+    if (!s.startsWith("http://") && !s.startsWith("https://"))
+        s = "https://$s"
+    if (!s.endsWith("/"))
+        s = "$s/"
+    return s
 }

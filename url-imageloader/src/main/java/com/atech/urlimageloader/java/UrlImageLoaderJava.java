@@ -87,7 +87,8 @@ public class UrlImageLoaderJava {
                                 var title = parser.select("meta[property=og:title]").first().attr("content");
                                 var description = parser.select("meta[property=og:description]").first().attr("content");
                                 var image = parser.select("meta[property=og:image]").first().attr("content");
-                                var details = new LinkDetails(title, description, image);
+                                var icon = parser.select("link[rel=icon]").first().attr("href");
+                                var details = new LinkDetails(title, description, icon, image);
                                 onCompleted.accept(details, null);
                             } else {
                                 onCompleted.accept(null, new Exception("Response is not successful"));

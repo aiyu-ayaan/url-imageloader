@@ -76,13 +76,17 @@ open class UrlImageLoader {
                                 }
                                 val description = response.body()?.run {
                                     Jsoup.parse(this).select("meta[property=og:description]")
-                                        .first()
-                                        ?.attr("content")
+                                        .first()?.attr("content")
                                 }
+                                val icon = response.body()?.run {
+                                    Jsoup.parse(this).select("link[rel=icon]").first()?.attr("href")
+                                }
+
                                 onCompleted(
                                     LinkDetails(
                                         title = title,
                                         description = description,
+                                        iconLink = icon,
                                         imageLink = imageUrl
                                     ), null
                                 )
@@ -101,8 +105,7 @@ open class UrlImageLoader {
          * @see com.atech.urlimageloader.java.UrlImageLoaderJava for java version
          */
         inline fun getCustomDetailsUrl(
-            url: String,
-            crossinline onCompleted: (Document?, Throwable?) -> Unit = { _, _ -> }
+            url: String, crossinline onCompleted: (Document?, Throwable?) -> Unit = { _, _ -> }
         ) {
             try {
                 RetrofitClient.getInstance(url.makeValidUrl()).getClient().getHTML()

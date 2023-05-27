@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                             imageView.load(it.imageLink)
                             textViewTitle.text = it.title
                             textViewDescription.text = it.description
+                            Log.d(TAG, "onCreate: ${it.iconLink}")
                         }
                     }
                 }
