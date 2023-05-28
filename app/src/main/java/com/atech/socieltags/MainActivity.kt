@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.atech.socieltags.databinding.ActivityMainBinding
 import com.atech.urlimageloader.kotlin.UrlImageLoader
+import com.atech.urlimageloader.utils.extractQueryFromUrl
 
 private const val TAG = "AAA"
 
@@ -23,23 +24,29 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        binding.textInputLayoutLink.editText?.setText("https://www.google.com/")
         binding.buttonGetDetails.setOnClickListener {
+
             binding.textInputLayoutLink.editText?.apply {
                 if (text.isEmpty()) {
                     binding.textInputLayoutLink.error = "Please enter a link"
                     return@apply
                 }
-                val link = text.toString()
-                UrlImageLoader.getLinkDetailsUrl(link) { linkDetails, t ->
-                    if (t != null) {
-                        Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-                    }
-                    linkDetails?.let {
-                        binding.apply {
-                            imageView.load(it.imageLink)
-                            textViewTitle.text = it.title
-                            textViewDescription.text = it.description
-                            Log.d(TAG, "onCreate: ${it.iconLink}")
+                text.toString().extractQueryFromUrl().let {link->
+                    UrlImageLoader.getLinkDetailsUrl(link) { linkDetails, t ->
+                        if (t != null) {
+                            Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                        }
+                        linkDetails?.let {
+                            binding.apply {
+                                imageView.load(it.imageLink)
+                                textViewTitle.text = it.title
+                                textViewDescription.text = it.description
+                                Log.d(TAG, "onCreate iconLink: ${it.iconLink}")
+                                Log.d(TAG, "onCreate imageLink : ${it.imageLink}")
+                                Log.d(TAG, "onCreate: title ${it.title}")
+                                Log.d(TAG, "onCreate: description ${it.description}")
+                            }
                         }
                     }
                 }

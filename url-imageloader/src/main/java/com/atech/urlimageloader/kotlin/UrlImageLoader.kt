@@ -11,15 +11,17 @@ open class UrlImageLoader {
     companion object {
         /**
          * Get image url from website
-         * @param url: url of the website
+         * @param link: url of the website
          * @param onCompleted: callback function
          * @see com.atech.urlimageloader.java.UrlImageLoaderJava for java version
          */
         inline fun getImageFromUrl(
-            url: String, crossinline onCompleted: (String?, Throwable?) -> Unit = { _, _ -> }
+            link: Pair<String, String>,
+            crossinline onCompleted: (String?, Throwable?) -> Unit = { _, _ -> }
         ) {
             try {
-                RetrofitClient.getInstance(url.makeValidUrl()).getClient().getHTML()
+                RetrofitClient.getInstance(link.first.makeValidUrl()).getClient()
+                    .getHTML(link.second)
                     .enqueue(object : retrofit2.Callback<String> {
                         override fun onFailure(call: Call<String>, t: Throwable) {
                             onCompleted(null, t)
@@ -47,16 +49,19 @@ open class UrlImageLoader {
 
         /**
          * Get image url and title from website
-         * @param url: url of the website
+         * @param link: url of the website
          * @param onCompleted: callback function
          * @see com.atech.urlimageloader.java.UrlImageLoaderJava for java version
          * @see LinkDetails for model class
          */
         inline fun getLinkDetailsUrl(
-            url: String, crossinline onCompleted: (LinkDetails?, Throwable?) -> Unit = { _, _ -> }
+            link: Pair<String, String>,
+            crossinline onCompleted: (LinkDetails?, Throwable?) -> Unit = { _, _ -> }
         ) {
             try {
-                RetrofitClient.getInstance(url.makeValidUrl()).getClient().getHTML()
+                RetrofitClient.getInstance(baseUrl = link.first.makeValidUrl())
+                    .getClient()
+                    .getHTML(link.second)
                     .enqueue(object : retrofit2.Callback<String> {
                         override fun onFailure(call: Call<String>, t: Throwable) {
                             onCompleted(null, t)
@@ -72,14 +77,17 @@ open class UrlImageLoader {
                                 }
                                 val title = response.body()?.run {
                                     Jsoup.parse(this).select("meta[property=og:title]").first()
-                                        ?.attr("content")
+                                        ?.attr("content") ?: Jsoup.parse(this).title()
                                 }
                                 val description = response.body()?.run {
                                     Jsoup.parse(this).select("meta[property=og:description]")
-                                        .first()?.attr("content")
+                                        .first()?.attr("content") ?: Jsoup.parse(this).title()
                                 }
                                 val icon = response.body()?.run {
-                                    Jsoup.parse(this).select("link[rel=icon]").first()?.attr("href")
+                                    Jsoup.parse(this).select("link[rel=icon]").firstOrNull()
+                                        ?.attr("href")
+                                        ?: Jsoup.parse(this).select("link[rel=shortcut icon]")
+                                            .firstOrNull()?.attr("href")
                                 }
 
                                 onCompleted(
@@ -100,15 +108,18 @@ open class UrlImageLoader {
 
         /**
          * Get details from website and return html
-         * @param url: url of the website
+         * @param link: url of the website
          * @param onCompleted: callback function
          * @see com.atech.urlimageloader.java.UrlImageLoaderJava for java version
          */
         inline fun getCustomDetailsUrl(
-            url: String, crossinline onCompleted: (Document?, Throwable?) -> Unit = { _, _ -> }
+            link: Pair<String, String>,
+            crossinline onCompleted: (Document?, Throwable?) -> Unit = { _, _ -> }
         ) {
             try {
-                RetrofitClient.getInstance(url.makeValidUrl()).getClient().getHTML()
+                RetrofitClient.getInstance(link.first.makeValidUrl())
+                    .getClient()
+                    .getHTML(link.second)
                     .enqueue(object : retrofit2.Callback<String> {
                         override fun onFailure(call: Call<String>, t: Throwable) {
                             onCompleted(null, t)
