@@ -4,7 +4,6 @@ import androidx.annotation.Keep
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-@Keep
 class RetrofitClient private constructor(
     baseUrl: String
 ) {
