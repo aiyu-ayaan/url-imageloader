@@ -1,5 +1,7 @@
 package com.atech.urlimageloader.utils;
 
+import androidx.annotation.Keep;
+
 import java.util.function.Consumer;
 
 /**
@@ -8,6 +10,7 @@ import java.util.function.Consumer;
  *
  * @author aiyu
  */
+@Keep
 @FunctionalInterface
 public interface BiConsumer<T, U> {
 
