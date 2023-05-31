@@ -1,8 +1,10 @@
 package com.atech.urlimageloader.client
 
+import androidx.annotation.Keep
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
+@Keep
 class RetrofitClient private constructor(
     baseUrl: String
 ) {
@@ -21,6 +23,7 @@ class RetrofitClient private constructor(
 
     companion object {
         private var instance: RetrofitClient? = null
+
         /**
          * @param baseUrl: url of the website
          * @return RetrofitClient instance
