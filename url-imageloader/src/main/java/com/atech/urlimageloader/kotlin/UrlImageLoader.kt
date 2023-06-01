@@ -1,12 +1,13 @@
 package com.atech.urlimageloader.kotlin
 
-import android.util.Log
 import androidx.annotation.Keep
-import com.atech.urlimageloader.client.RetrofitClient
+import com.atech.urlimageloader.client.Client
 import com.atech.urlimageloader.model.LinkDetails
 import com.atech.urlimageloader.utils.makeValidUrl
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 @Keep
 open class UrlImageLoader {
@@ -22,7 +23,13 @@ open class UrlImageLoader {
             crossinline onCompleted: (String?, Throwable?) -> Unit = { _, _ -> }
         ) {
             try {
-                RetrofitClient.getInstance(link.first.makeValidUrl()).getClient()
+                Retrofit.Builder()
+                    .baseUrl(link.first.makeValidUrl())
+                    .addConverterFactory(
+                        ScalarsConverterFactory.create()
+                    )
+                    .build()
+                    .create(Client::class.java)
                     .getHTML(link.second)
                     .let { response ->
                         if (response.isSuccessful) {
@@ -54,8 +61,13 @@ open class UrlImageLoader {
             crossinline onCompleted: (LinkDetails?, Throwable?) -> Unit = { _, _ -> }
         ) {
             try {
-                RetrofitClient.getInstance(baseUrl = link.first.makeValidUrl())
-                    .getClient()
+                Retrofit.Builder()
+                    .baseUrl(link.first.makeValidUrl())
+                    .addConverterFactory(
+                        ScalarsConverterFactory.create()
+                    )
+                    .build()
+                    .create(Client::class.java)
                     .getHTML(link.second)
                     .let { response ->
                         if (response.isSuccessful) {
@@ -104,8 +116,13 @@ open class UrlImageLoader {
             crossinline onCompleted: (Document?, Throwable?) -> Unit = { _, _ -> }
         ) {
             try {
-                RetrofitClient.getInstance(link.first.makeValidUrl())
-                    .getClient()
+                Retrofit.Builder()
+                    .baseUrl(link.first.makeValidUrl())
+                    .addConverterFactory(
+                        ScalarsConverterFactory.create()
+                    )
+                    .build()
+                    .create(Client::class.java)
                     .getHTML(link.second)
                     .let { response ->
                         if (response.isSuccessful) {

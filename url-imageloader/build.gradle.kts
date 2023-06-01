@@ -51,7 +51,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.aiyu-ayaan"
                 artifactId = "url-imageloader"
-                version = "1.0.4"
+                version = "1.0.5"
             }
         }
     }
